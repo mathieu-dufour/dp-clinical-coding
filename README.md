@@ -11,7 +11,16 @@ It implements and evaluates four training pipelines on the MIMIC-III dataset:
 - **DP-Distil**: DP-trained 3B generator + teacher → synthetic data + logits → 1B student  
 
 All pipelines produce 1B-parameter classifiers on the top-50 ICD-9 codes.  
-All final classifiers, except the LoRA-No-DP baseline, satisfy a formal $(\varepsilon,\delta)$-DP guarantee.
+All final classifiers, except the LoRA-No-DP baseline, satisfy a formal (ε,δ)-differential privacy guarantee.
+
+---
+
+## Data
+
+The pipelines use **MIMIC-III v1.4** (Medical Information Mart for Intensive Care).  
+Access requires completing the [CITI training](https://physionet.org/about/citi-training/) and applying for credentialed access via [PhysioNet](https://physionet.org/content/mimiciii/1.4/).  
+
+- Place the original `NOTEEVENTS.csv` and `DIAGNOSES_ICD.csv` under `data/raw/` (not included in this repo).  
 
 ---
 
@@ -27,7 +36,7 @@ Install everything with:
 
 ```bash
 pip install -r requirements.txt
-````
+```
 
 ---
 
@@ -41,7 +50,7 @@ Run scripts in order:
    python 01_prepare_mimic_data.py
    ```
 
-   → writes `data/real/real_{train,val,test}_codes_notes.pt`
+   → Writes `data/real/real_{train,val,test}_codes_notes.pt`
 
 2. **Train generators & make synthetic data**
 
@@ -69,7 +78,7 @@ Experiments were run on NVIDIA **RTX 6000 Ada (48 GB VRAM)** GPUs.
 Select which GPU(s) to use by setting the `GPUS` variable:
 
 ```bash
-# run on GPU 1
+# Run on GPU 1
 GPUS="1" bash 03_run_train_classifiers.sh
 ```
 

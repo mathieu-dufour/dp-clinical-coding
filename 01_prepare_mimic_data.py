@@ -130,9 +130,11 @@ def main():
     ap = argparse.ArgumentParser(
         description="Prepare (codes, text) PT files for top-50 ICD-9."
     )
-    ap.add_argument("--note_events_csv", type=Path, default=Path("data/NOTEEVENTS.csv"))
     ap.add_argument(
-        "--diagnoses_csv", type=Path, default=Path("data/DIAGNOSES_ICD.csv")
+        "--note_events_csv", type=Path, default=Path("data/raw/NOTEEVENTS.csv")
+    )
+    ap.add_argument(
+        "--diagnoses_csv", type=Path, default=Path("data/raw/DIAGNOSES_ICD.csv")
     )
     ap.add_argument("--out_dir", type=Path, default=Path("data/real"))
     ap.add_argument("--top_k", type=int, default=50)
